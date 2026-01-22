@@ -25,9 +25,10 @@ class MainWindow(QMainWindow):
         main_layout = QVBoxLayout()
 
         # Encabezado - Header
-        title = QLabel("Task Manager")
-        title.setStyleSheet("font-size: 22px; font-weight: bold;")
-        main_layout.addWidget(title)
+        self.title_label = QLabel("Task Manager")
+        self.title_label.setObjectName("titleLabel")
+        self.title_label.setStyleSheet("font-size: 22px; font-weight: bold;")
+        main_layout.addWidget(self.title_label)
 
         # Contenido principal - Main Content
         content_layout = QHBoxLayout()

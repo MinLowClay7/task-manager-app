@@ -6,9 +6,13 @@ QMainWindow {
 }
 
 /* TITLES */
-QLabel {
-    font-size: 14px;
+QLabel#titleLabel {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
+
 
 /* TABLE */
 QTableWidget {
