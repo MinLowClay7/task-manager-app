@@ -48,6 +48,10 @@ class MainWindow(QMainWindow):
         # ---- Acciones - Actions ----
         actions_layout = QVBoxLayout()
 
+        self.btn_theme = QPushButton("🌙")
+        self.btn_theme.clicked.connect(self.toggle_theme)
+        main_layout.addWidget(self.btn_theme)
+
         self.btn_add = QPushButton("➕ Crear tarea")
         self.btn_add.clicked.connect(self.open_add_task)
         self.btn_complete = QPushButton("✅ Completar")
@@ -135,3 +139,13 @@ class MainWindow(QMainWindow):
         if confirm == QMessageBox.Yes:
             self.controller.delete_task(row)
             self.load_tasks()
+    
+    # Alternar tema claro/oscuro
+    def toggle_theme(self):
+        self.dark_mode = not getattr(self, "dark_mode", True)
+
+        file = "app/ui/styles.qss" if self.dark_mode else "app/ui/light.qss"
+
+        with open(file, "r", encoding="utf-8") as f:
+            self.window().setStyleSheet(f.read())
+
