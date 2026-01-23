@@ -3,8 +3,9 @@ from tkinter import dialog
 from PySide6.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
     QLabel, QPushButton, QMessageBox, QTableWidget, QTableWidgetItem,
-    QHeaderView
+    QHeaderView, QApplication
 )
+from app.utils.theme_loader import load_styles
 from app.controllers.task_controller import TaskController
 from app.ui.add_task_dialog import AddTaskDialog
 from PySide6.QtGui import QColor
@@ -49,6 +50,7 @@ class MainWindow(QMainWindow):
         # ---- Acciones - Actions ----
         actions_layout = QVBoxLayout()
 
+        self.current_theme = "dark"
         self.btn_theme = QPushButton("🌙")
         self.btn_theme.clicked.connect(self.toggle_theme)
         main_layout.addWidget(self.btn_theme)
@@ -143,10 +145,14 @@ class MainWindow(QMainWindow):
     
     # Alternar tema claro/oscuro
     def toggle_theme(self):
-        self.dark_mode = not getattr(self, "dark_mode", True)
+        if self.current_theme == "dark":
+            self.current_theme = "light"
+        else:
+            self.current_theme = "dark"
 
-        file = "app/ui/styles.qss" if self.dark_mode else "app/ui/light.qss"
+        self.apply_theme()
 
-        with open(file, "r", encoding="utf-8") as f:
-            self.window().setStyleSheet(f.read())
-
+    def apply_theme(self):
+        QApplication.instance().setStyleSheet(
+            load_styles(self.current_theme)
+        )
