@@ -7,7 +7,7 @@ from app.utils.theme_loader import load_styles
 
 def main():
     app = QApplication(sys.argv)
-    app.setWindowIcon(QIcon("assets/icon.png"))
+    app.setWindowIcon(QIcon("assets/icon.ico"))
 
     app.setStyleSheet(load_styles("dark"))
 
